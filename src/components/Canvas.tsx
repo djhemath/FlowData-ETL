@@ -2,7 +2,7 @@ import { ReactFlow, Controls, Background, SelectionMode, Panel, Node, Edge, OnNo
 import '@xyflow/react/dist/style.css';
 import FilePicker from './custom_nodes/FilePicker/FilePicker';
 import { MouseEventHandler } from 'react';
-import Filter from './custom_nodes/FilterNode';
+import Filter from './custom_nodes/Filter/Filter';
 
 const nodeTypes = {
   filePicker: FilePicker,
