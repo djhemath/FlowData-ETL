@@ -1,37 +1,8 @@
-import { ReactFlow, Controls, Background, applyNodeChanges, applyEdgeChanges, addEdge, SelectionMode, Panel, Node } from '@xyflow/react';
+import { ReactFlow, Controls, Background, SelectionMode, Panel, Node, Edge, OnNodesChange, OnEdgesChange, OnConnect } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import DataSourceNode from './custom_nodes/DataSourceNode';
-import { useCallback, useState } from 'react';
+import { MouseEventHandler } from 'react';
 import Filter from './custom_nodes/FilterNode';
-
-const initialNodes: Node[] = [
-  {
-    id: '1',
-    type: 'dataSource',
-    position: {x: 0, y: 0},
-    data: {
-      type: 'source'
-    },
-  },
-  {
-    id: '2',
-    type: 'filter',
-    position: {x: 400, y: 0},
-    data: {
-      type: 'processor'
-    }
-  },
-  {
-    id: '22',
-    type: 'filter',
-    position: {x: 800, y: 0},
-    data: {
-      type: 'processor'
-    }
-  },
-];
-
-const initialEdges: any = [];
 
 const nodeTypes = {
   dataSource: DataSourceNode,
@@ -40,64 +11,23 @@ const nodeTypes = {
 
 const panOnDrag = [1, 2];
 
-export default function Canvas() {
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
+type CanvasProps = {
+  nodes: Node[],
+  edges: Edge[],
+  onNodesChange: OnNodesChange,
+  onEdgesChange: OnEdgesChange,
+  onConnect: OnConnect,
+  onRun: MouseEventHandler<HTMLButtonElement>,
+};
 
-  const onNodesChange = useCallback(
-    (changes: any) => setNodes((nds) => applyNodeChanges(changes, nds)),
-    [],
-  );
-
-  const onEdgesChange = useCallback(
-    (changes: any) => setEdges((eds: any) => applyEdgeChanges(changes, eds)),
-    [],
-  );
-
-  const onConnect = useCallback(
-    (params: any) => {
-      const target = params.target;
-
-      console.log(target);
-      console.log(edges);
-
-      const isAlreadyConnected = edges.find((edge: any) => edge.target === target);
-
-      console.log(isAlreadyConnected);
-
-      if(!isAlreadyConnected) {
-        setEdges((eds: any) => addEdge(params, eds));
-      }
-    },
-    [edges],
-  );
-
-  const onRun = () => {
-    console.log(nodes);
-    console.log(edges);
-
-    const sourceNode = nodes.find(node => node.data.type === 'source');
-    if(!sourceNode) {
-      return;
-    }
-
-    const firstEdge = edges.find((edge: any) => edge.source === sourceNode.id);
-
-    const flow = [firstEdge.source];
-
-    let currentNode = flow[0];
-
-    while(true) {
-      const nextEdge = edges.find((edge: any) => edge.source === currentNode);
-      if(!nextEdge) break;
-
-      flow.push(nextEdge.target);
-      currentNode = nextEdge.target;
-    }
-
-    console.log(flow);
-  }
-
+export default function Canvas({
+  nodes,
+  edges,
+  onNodesChange,
+  onEdgesChange,
+  onConnect,
+  onRun,
+}: CanvasProps) {
   return (
     <div className="canvas">
       <ReactFlow
