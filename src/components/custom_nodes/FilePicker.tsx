@@ -1,8 +1,6 @@
 import { Handle, Node, Position } from "@xyflow/react";
 
-export default function FilterPicker({
-    data,
-}: Node) {
+export default function FilterPicker({}: Node) {
     return (
         <>
             <Handle type="target" position={Position.Left}/>
