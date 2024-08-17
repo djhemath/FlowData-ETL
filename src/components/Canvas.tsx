@@ -1,6 +1,6 @@
 import { ReactFlow, Controls, Background, SelectionMode, Panel, Node, Edge, OnNodesChange, OnEdgesChange, OnConnect } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import FilePicker from './custom_nodes/FilePicker';
+import FilePicker from './custom_nodes/FilePicker/FilePicker';
 import { MouseEventHandler } from 'react';
 import Filter from './custom_nodes/FilterNode';
 
