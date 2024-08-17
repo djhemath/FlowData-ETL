@@ -1,0 +1,46 @@
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.workplace {
+    display: flex;
+    flex: 8;
+}
+
+.output-container {
+    flex: 4;
+}
+
+.toolbox {
+    flex: 2;
+    border-right: 0.5px solid #383838;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.block {
+    padding: 10px;
+    background-color: #131313;
+    border: 0.5px solid #383838;
+    border-radius: 5px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.canvas {
+    flex: 10;
+    height: 100%;
+}
+
+.output {
+    background-color: #3b3b3b;
+    height: 100%;
+}
