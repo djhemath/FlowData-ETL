@@ -53,18 +53,18 @@ function App() {
     (params: Connection) => {
       const target = params.target;
 
-      console.log(target);
-      console.log(edges);
-
       const isAlreadyConnected = edges.find((edge: Edge) => edge.target === target);
+      if(isAlreadyConnected) return;
 
-      console.log(isAlreadyConnected);
+      const sourceNode = nodes.find(node => node.data.type === 'dataSource');
+      if(!sourceNode) return;
 
-      if(!isAlreadyConnected) {
-        setEdges((eds: Edge[]) => addEdge(params, eds));
-      }
+      const isConnectingToSource = target === sourceNode.id;
+      if(isConnectingToSource) return;
+
+      setEdges((eds: Edge[]) => addEdge(params, eds));
     },
-    [edges],
+    [nodes, edges],
   );
 
   const onRun = () => {
@@ -87,9 +87,14 @@ function App() {
       const nextEdge = edges.find((edge: Edge) => edge.source === currentNode);
       if(!nextEdge) break;
 
+      // Prevent cycles
+      if(flow.includes(nextEdge.target)) break;
+
       flow.push(nextEdge.target);
       currentNode = nextEdge.target;
     }
+
+    console.log(flow);
   }
 
   const onBlockAdd = (block: Block) => {
