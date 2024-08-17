@@ -3,15 +3,15 @@ import { useState, useCallback } from "react";
 import "./App.css";
 import Canvas from "./components/Canvas";
 import Output from "./components/Output";
-import ToolBox from "./components/ToolBox";
+import ToolBox, { Block } from "./components/ToolBox";
 
 const initialNodes: Node[] = [
   {
     id: '1',
-    type: 'dataSource',
+    type: 'filePicker',
     position: {x: 0, y: 0},
     data: {
-      type: 'source'
+      type: 'dataSource'
     },
   },
   {
@@ -19,7 +19,7 @@ const initialNodes: Node[] = [
     type: 'filter',
     position: {x: 400, y: 0},
     data: {
-      type: 'processor'
+      type: 'dataProcessor'
     }
   },
   {
@@ -27,7 +27,7 @@ const initialNodes: Node[] = [
     type: 'filter',
     position: {x: 800, y: 0},
     data: {
-      type: 'processor'
+      type: 'dataProcessor'
     }
   },
 ];
@@ -68,10 +68,7 @@ function App() {
   );
 
   const onRun = () => {
-    console.log(nodes);
-    console.log(edges);
-
-    const sourceNode = nodes.find((node: Node) => node.data.type === 'source');
+    const sourceNode = nodes.find((node: Node) => node.data.type === 'dataSource');
     if(!sourceNode) {
       return;
     }
@@ -93,14 +90,33 @@ function App() {
       flow.push(nextEdge.target);
       currentNode = nextEdge.target;
     }
+  }
 
-    console.log(flow);
+  const onBlockAdd = (block: Block) => {
+    if(block.type === 'dataSource') {
+      const isDataSourceAlreadyExist = nodes.find(node => node.data.type === 'dataSource');
+
+      if(isDataSourceAlreadyExist) return;
+    }
+
+    const newNode = {
+      id: Math.random() + '',
+      type: block.id, // This is custom node type of reactflow
+      position: {x: 0, y: 0},
+      data: {
+        type: block.type
+      },
+    };
+
+    setNodes((nodes) => [...nodes, newNode]);
   }
 
   return (
     <main>
       <div className="workplace">
-        <ToolBox />
+        <ToolBox
+          onBlockAdd={onBlockAdd}
+        />
         <Canvas
           nodes={nodes}
           edges={edges}

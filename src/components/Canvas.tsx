@@ -5,7 +5,7 @@ import { MouseEventHandler } from 'react';
 import Filter from './custom_nodes/FilterNode';
 
 const nodeTypes = {
-  dataSource: DataSourceNode,
+  filePicker: DataSourceNode,
   filter: Filter,
 }
 
