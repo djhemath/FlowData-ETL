@@ -5,7 +5,6 @@ import { CustomNodeContainer, CustomNodeInnerContainer, CustomNodeTitle, CustomN
 export default function FilterPicker() {
     return (
         <CustomNodeContainer>
-            <Handle type="target" position={Position.Left}/>
             <CustomNodeInnerContainer>
                 <CustomNodeTitle>File picker</CustomNodeTitle>
                 <input type="file" id="file-picker" style={{display: 'none'}} />
