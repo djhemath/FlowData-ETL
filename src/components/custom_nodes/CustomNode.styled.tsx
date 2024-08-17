@@ -21,3 +21,12 @@ export const CustomNodeTitle = styled.p`
 export const CustomNodeHelperText = styled.small`
     font-size: 10px;
 `;
+
+export const CustomNodeButton = styled.button`
+    font-size: 10px;
+    background-color: #9143ea;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+`;
