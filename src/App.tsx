@@ -4,6 +4,7 @@ import "./App.css";
 import Canvas from "./components/Canvas";
 import Output from "./components/Output";
 import ToolBox, { Block } from "./components/ToolBox";
+import DataProcessor from "./utils/data_processor";
 
 const initialNodes: Node[] = [
   {
@@ -22,17 +23,13 @@ const initialNodes: Node[] = [
       type: 'dataProcessor'
     }
   },
-  {
-    id: '22',
-    type: 'filter',
-    position: {x: 800, y: 0},
-    data: {
-      type: 'dataProcessor'
-    }
-  },
 ];
 
 const initialEdges: Edge[] = [];
+
+// TODO: Ability to delete a block
+// TODO: write a processor that goes throw the flow and processes the data
+// TODO: we can move this processor to wasm
 
 function App() {
 
@@ -67,7 +64,7 @@ function App() {
     [nodes, edges],
   );
 
-  const onRun = () => {
+  const onRun = async () => {
     const sourceNode = nodes.find((node: Node) => node.data.type === 'dataSource');
     if(!sourceNode) {
       return;
@@ -94,7 +91,36 @@ function App() {
       currentNode = nextEdge.target;
     }
 
-    console.log(flow);
+    // TODO: Add proper types
+    const instructions: any[] = [];
+
+    for(let i=0; i<flow.length; i++) {
+      const nodeId = flow[i];
+      const node = nodes.find(n => n.id === nodeId);
+
+      if(!node) {
+        continue;
+      }
+
+      const instruction: any = {
+        type: node.data.type,
+        processType: node.type,
+      };
+
+      if(instruction.processType === 'filePicker') {
+        instruction.file = node.data.file;
+      } else if(instruction.processType === 'filter') {
+        instruction.conditions = node.data.conditions;
+      }
+
+      instructions.push(instruction);
+    }
+
+    const dataProcessor = new DataProcessor(instructions);
+    const processedData = await dataProcessor.processInstructions();
+
+    // TODO: Display this in the Output panel
+    console.log(processedData);
   }
 
   const onBlockAdd = (block: Block) => {
