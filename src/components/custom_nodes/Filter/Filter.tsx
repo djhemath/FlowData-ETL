@@ -4,7 +4,7 @@ import { FilterColumnRow, FilterDeleteButton, FilterInnerContainer, FilterLabel,
 import { Fragment, ReactEventHandler, useEffect, useRef, useState } from "react";
 import { Delete } from "../../icons";
 
-enum Operator {
+export enum Operator {
     IS_EQUAL_TO = 'IS_EQUAL_TO',
     IS_NOT_EQUAL_TO = 'IS_NOT_EQUAL_TO',
     IS_GREATER_THAN = 'IS_GREATER_THAN',
@@ -16,13 +16,14 @@ enum Operator {
     IS_FALSY = 'IS_FALSY',
 };
 
-type Condition = {
+export type Condition = {
     id: number,
     column: string,
     operator: Operator,
     value: any,
 };
 
+// TODO: Ability to perform OR filter
 export default function Filter({ id }: NodeProps) {
     const { updateNodeData } = useReactFlow();
     const numberOfConditions = useRef(1);
