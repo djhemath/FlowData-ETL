@@ -16,8 +16,20 @@ export default function FilterPicker({ id }: NodeProps) {
 
                 if(text) {
                     try {
+                        const data = JSON.parse(text);
+
+                        let columns: string[] = [];
+
+                        if(data && Array.isArray(data) && data.length > 1) {
+                            const firstObject = data[0];
+                            
+                            for(let key in firstObject) {
+                                columns.push(key);
+                            }
+                        }                    
+
                         updateNodeData(id, {
-                            data: JSON.parse(text),
+                            output: columns,
                         });
                         setFileName(files[0].name);
                     } catch(err) {

@@ -32,20 +32,10 @@ export default function Filter({ id }: NodeProps) {
     });
 
     const node = useNodesData(connections[0]?.source);
-    let data;
-
-    if(node) {
-        data = node?.data.data;
-    }
-
     let columns: string[] = [];
 
-    if(data && Array.isArray(data) && data.length > 1) {
-        const firstObject = data[0];
-        
-        for(let key in firstObject) {
-            columns.push(key);
-        }
+    if(node) {
+        columns = node.data.output as string[];
     }
 
     const [conditions, setConditions] = useState<Condition[]>([
@@ -60,6 +50,7 @@ export default function Filter({ id }: NodeProps) {
     useEffect(() => {
         updateNodeData(id, {
             conditions,
+            output: columns,
         });
     }, [conditions]);
 
