@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FilterPickerLabel = styled.label`
+export const FilePickerLabel = styled.label`
     font-size: 10px;
     background-color: #9143ea;
     border-radius: 5px;
