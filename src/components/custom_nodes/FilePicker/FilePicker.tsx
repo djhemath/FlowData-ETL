@@ -9,7 +9,13 @@ export default function FilterPicker({ id }: NodeProps) {
 
     const onFilePicked: React.ChangeEventHandler<HTMLInputElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
+
         if(files) {
+            updateNodeData(id, {
+                output: [],
+                file: files[0],
+            });
+
             const reader = new FileReader();
             reader.onload = (fileReaderEvent) => {
                 const text = fileReaderEvent.target?.result as string;
@@ -30,6 +36,7 @@ export default function FilterPicker({ id }: NodeProps) {
 
                         updateNodeData(id, {
                             output: columns,
+                            file: files[0],
                         });
                         setFileName(files[0].name);
                     } catch(err) {
