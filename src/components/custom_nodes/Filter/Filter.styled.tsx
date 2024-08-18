@@ -14,3 +14,14 @@ export const FilterLabel = styled.label`
 export const FilterInnerContainer = styled(CustomNodeInnerContainer) `
     gap: 15px;
 `;
+
+export const FilterColumnRow = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+export const FilterDeleteButton = styled.button`
+    background: none;
+    border: none;
+`;

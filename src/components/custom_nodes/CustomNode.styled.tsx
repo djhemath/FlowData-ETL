@@ -6,7 +6,7 @@ export const CustomNodeContainer = styled.div`
     border-radius: 5px;
 `;
 
-export const CustomNodeInnerContainer = styled.label`
+export const CustomNodeInnerContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -29,4 +29,10 @@ export const CustomNodeButton = styled.button`
     padding: 10px 20px;
     cursor: pointer;
     border: none;
+`;
+
+export const StyledHR = styled.div`
+    width: 100%;
+    height: 0.5px;
+    background-color: #7b7b7b;
 `;
