@@ -35,7 +35,7 @@ export default function Filter({ id }: NodeProps) {
     const node = useNodesData(connections[0]?.source);
     let columns: string[] = [];
 
-    if(node) {
+    if(node && node.data && node.data.output) {
         columns = node.data.output as string[];
     }
 
