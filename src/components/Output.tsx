@@ -54,6 +54,15 @@ function getColumns(data: any[] = []) {
     return columns;
 }
 
+function exportJSON(data: any) {
+    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(JSON.stringify(data))}`;
+    const link = document.createElement("a");
+    link.href = jsonString;
+    link.download = "flow-export-data.json";
+
+    link.click();
+}
+
 export type OutputProps = {
     data: any[],
 };
@@ -68,7 +77,7 @@ export default function Output({
         <div className="output">
             <div className="output-header">
                 <h3>Output</h3>
-                <button>Export JSON</button>
+                <button onClick={() => exportJSON(data)}>Export JSON</button>
             </div>
 
             <DataTable
