@@ -60,7 +60,7 @@ function App() {
       const isConnectingToSource = target === sourceNode.id;
       if(isConnectingToSource) return;
 
-      setEdges((eds: Edge[]) => addEdge(params, eds));
+      setEdges((eds: Edge[]) => addEdge({...params, animated: true}, eds));
     },
     [nodes, edges],
   );
