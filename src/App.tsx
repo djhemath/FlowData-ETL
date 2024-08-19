@@ -34,6 +34,7 @@ function App() {
 
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
+  const [output, setOutput] = useState<any[]>([]);
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes: NodeChange[]) => setNodes((nds: Node[]) => applyNodeChanges(changes, nds)),
@@ -117,8 +118,7 @@ function App() {
     const dataProcessor = new DataProcessor(instructions);
     const processedData = await dataProcessor.processInstructions();
 
-    // TODO: Display this in the Output panel
-    console.log(processedData);
+    setOutput(processedData);
   }
 
   const onBlockAdd = (block: Block) => {
@@ -156,7 +156,7 @@ function App() {
         />
       </div>
       <div className="output-container">
-        <Output />
+        <Output data={output} />
       </div>
     </main>
   );
