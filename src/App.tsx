@@ -28,6 +28,7 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [];
 
 // TODO: Ability to delete a block
+// TODO: Ability to delete an edge
 // TODO: we can move this processor to wasm
 
 function App() {
