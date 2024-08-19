@@ -4,7 +4,7 @@ import "./App.css";
 import Canvas from "./components/Canvas";
 import Output from "./components/Output";
 import ToolBox, { Block } from "./components/ToolBox";
-import DataProcessor from "./utils/data_processor";
+import DataProcessor, { Instruction } from "./utils/data_processor";
 
 const initialNodes: Node[] = [
   {
@@ -91,8 +91,7 @@ function App() {
       currentNode = nextEdge.target;
     }
 
-    // TODO: Add proper types
-    const instructions: any[] = [];
+    const instructions: Instruction[] = [];
 
     for(let i=0; i<flow.length; i++) {
       const nodeId = flow[i];

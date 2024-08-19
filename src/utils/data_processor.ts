@@ -1,10 +1,26 @@
 import { Condition, Operator } from "../components/custom_nodes/Filter/Filter";
 
+export type DataSourceInstruction = {
+    type: 'dataSource',
+    processType: 'filePicker',
+    file: File,
+};
+
+export type DataProcessorFilterInstruction = {
+    type: 'dataProcessor',
+    processType: 'filter',
+    conditions: Condition[],
+};
+
+// ? NOTE: Discriminated union
+// https://stackoverflow.com/a/56950384/13262332
+export type Instruction = DataSourceInstruction | DataProcessorFilterInstruction;
+
 export default class DataProcessor {
-    private instructions: any[] = [];
+    private instructions: Instruction[] = [];
     private data: any[] = [];
 
-    constructor(instructions: any[]) {
+    constructor(instructions: Instruction[]) {
         this.instructions = instructions;
     }
 
