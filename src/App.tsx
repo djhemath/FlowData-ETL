@@ -72,11 +72,13 @@ function App() {
 
     const firstEdge = edges.find((edge: Edge) => edge.source === sourceNode.id);
 
-    if(!firstEdge) {
-      return;
-    }
+    const flow = [];
 
-    const flow = [firstEdge.source];
+    if(firstEdge) {
+      flow.push(firstEdge.source);
+    } else {
+      flow.push(sourceNode.id);
+    }
 
     let currentNode = flow[0];
 
