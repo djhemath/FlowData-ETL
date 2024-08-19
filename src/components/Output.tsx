@@ -1,21 +1,5 @@
 import DataTable, { createTheme } from "react-data-table-component";
 
-// TODO: Prepare column based on rows and make the table dynamic
-const columns = [
-	{
-		name: 'Title',
-		selector: (row: any) => row.title,
-	},
-	{
-		name: 'Year',
-		selector: (row: any) => row.year,
-	},
-    {
-		name: 'Is alive',
-		selector: (row: any) => row.isAlive,
-	},
-];
-
 createTheme('solarized', {
     text: {
       primary: '#FFF',
@@ -38,92 +22,6 @@ createTheme('solarized', {
     },
   });
 
-const data = [
-  	{
-		id: 1,
-		title: 'Beetlejuice',
-		year: '1988',
-        isAlive: true,
-	},
-	{
-		id: 2,
-		title: 'Ghostbusters',
-		year: '1984',
-        isAlive: true,
-	},
-    {
-		id: 1,
-		title: 'Beetlejuice',
-		year: '1988',
-        isAlive: true,
-	},
-	{
-		id: 2,
-		title: 'Ghostbusters',
-		year: '1984',
-        isAlive: true,
-	},
-    {
-		id: 1,
-		title: 'Beetlejuice',
-		year: '1988',
-        isAlive: true,
-	},
-	{
-		id: 2,
-		title: 'Ghostbusters',
-		year: '1984',
-        isAlive: true,
-	},
-    {
-		id: 1,
-		title: 'Beetlejuice',
-		year: '1988',
-        isAlive: true,
-	},
-	{
-		id: 2,
-		title: 'Ghostbusters',
-		year: '1984',
-        isAlive: true,
-	},
-    {
-		id: 1,
-		title: 'Beetlejuice',
-		year: '1988',
-        isAlive: true,
-	},
-	{
-		id: 2,
-		title: 'Ghostbusters',
-		year: '1984',
-        isAlive: true,
-	},
-    {
-		id: 1,
-		title: 'Beetlejuice',
-		year: '1988',
-        isAlive: true,
-	},
-	{
-		id: 2,
-		title: 'Ghostbusters',
-		year: '1984',
-        isAlive: true,
-	},
-    {
-		id: 1,
-		title: 'Beetlejuice',
-		year: '1988',
-        isAlive: true,
-	},
-	{
-		id: 2,
-		title: 'ABCD',
-		year: '1984',
-        isAlive: true,
-	},
-]
 
 const customStyles = {
     headCells: {
@@ -139,7 +37,33 @@ const customStyles = {
 	},
 }
 
-export default function Output() {
+function getColumns(data: any[] = []) {
+    let columns: any[] = [];
+
+    if(data.length > 0) {
+        const firstObject = data[0];
+
+        for(let key in firstObject) {
+            columns.push({
+                name: key,
+                selector: (row: any) => row[key],
+            });
+        }
+    }
+
+    return columns;
+}
+
+export type OutputProps = {
+    data: any[],
+};
+
+export default function Output({
+    data,
+}: OutputProps) {
+
+    const columns = getColumns(data);
+
     return (
         <div className="output">
             <div className="output-header">
