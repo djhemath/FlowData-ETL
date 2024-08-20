@@ -36,3 +36,15 @@ export const StyledHR = styled.div`
     height: 0.5px;
     background-color: #7b7b7b;
 `;
+
+export const CustomNodeHeaderContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+export const IconButton = styled.button`
+    background: none;
+    border: none;
+    cursor: pointer;
+`;
