@@ -1,11 +1,12 @@
 import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { FilePickerLabel } from "./FilePicker.styled";
-import { CustomNodeContainer, CustomNodeInnerContainer, CustomNodeTitle, CustomNodeHelperText } from "../CustomNode.styled";
+import { CustomNodeContainer, CustomNodeInnerContainer, CustomNodeTitle, CustomNodeHelperText, CustomNodeHeaderContainer, IconButton } from "../CustomNode.styled";
 import { useState } from "react";
+import { Close } from "../../icons";
 
 export default function FilterPicker({ id }: NodeProps) {
     const [fileName, setFileName] = useState<string | null>(null);
-    const { updateNodeData } = useReactFlow();
+    const { updateNodeData, deleteElements } = useReactFlow();
 
     const onFilePicked: React.ChangeEventHandler<HTMLInputElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -53,7 +54,12 @@ export default function FilterPicker({ id }: NodeProps) {
     return (
         <CustomNodeContainer>
             <CustomNodeInnerContainer>
-                <CustomNodeTitle>File picker</CustomNodeTitle>
+                <CustomNodeHeaderContainer>
+                    <CustomNodeTitle>File picker</CustomNodeTitle>
+                    <IconButton onClick={() => deleteElements({nodes: [{id}]})}>
+                        <Close />
+                    </IconButton>
+                </CustomNodeHeaderContainer>
                 <input type="file" id="file-picker" style={{display: 'none'}} onChange={onFilePicked}/>
                 {
                     fileName

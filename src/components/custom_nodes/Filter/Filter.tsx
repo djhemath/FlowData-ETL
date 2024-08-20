@@ -1,6 +1,6 @@
 import { Handle, NodeProps, Position, useHandleConnections, useNodesData, useReactFlow } from "@xyflow/react";
-import { CustomNodeButton, CustomNodeContainer, CustomNodeTitle, StyledHR } from "../CustomNode.styled";
-import { FilterColumnRow, FilterDeleteButton, FilterHeaderContainer, FilterInnerContainer, FilterLabel, FilterOptionsContainer } from "./Filter.styled";
+import { CustomNodeButton, CustomNodeContainer, CustomNodeHeaderContainer, CustomNodeTitle, IconButton, StyledHR } from "../CustomNode.styled";
+import { FilterColumnRow, FilterInnerContainer, FilterLabel, FilterOptionsContainer } from "./Filter.styled";
 import { Fragment, ReactEventHandler, useEffect, useRef, useState } from "react";
 import { Close, Delete } from "../../icons";
 
@@ -112,12 +112,12 @@ export default function Filter({ id }: NodeProps) {
         <CustomNodeContainer style={{minWidth: 200}}>
             <Handle type="target" position={Position.Left}/>
             <FilterInnerContainer>
-                <FilterHeaderContainer>
+                <CustomNodeHeaderContainer>
                     <CustomNodeTitle>Filter</CustomNodeTitle>
-                    <FilterDeleteButton onClick={() => deleteElements({nodes: [{id}]})}>
+                    <IconButton onClick={() => deleteElements({nodes: [{id}]})}>
                         <Close />
-                    </FilterDeleteButton>
-                </FilterHeaderContainer>
+                    </IconButton>
+                </CustomNodeHeaderContainer>
                 {
                     conditions.map(condition => (
                         <Fragment key={condition.id}>
@@ -166,9 +166,9 @@ function FilterItem({
         <FilterOptionsContainer>
             <FilterColumnRow>
                 <FilterLabel htmlFor="select-1">Column Name</FilterLabel>
-                <FilterDeleteButton onClick={() => onDeleteFilter(condition.id)}>
+                <IconButton onClick={() => onDeleteFilter(condition.id)}>
                     <Delete />
-                </FilterDeleteButton>
+                </IconButton>
             </FilterColumnRow>
             <select name="select-1" value={condition.column} onChange={(e) => onColumnChange(condition.id, e.target.value)}>
                 <option value=''>Please select a column</option>
