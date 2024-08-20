@@ -1,8 +1,8 @@
 import { Handle, NodeProps, Position, useHandleConnections, useNodesData, useReactFlow } from "@xyflow/react";
 import { CustomNodeButton, CustomNodeContainer, CustomNodeTitle, StyledHR } from "../CustomNode.styled";
-import { FilterColumnRow, FilterDeleteButton, FilterInnerContainer, FilterLabel, FilterOptionsContainer } from "./Filter.styled";
+import { FilterColumnRow, FilterDeleteButton, FilterHeaderContainer, FilterInnerContainer, FilterLabel, FilterOptionsContainer } from "./Filter.styled";
 import { Fragment, ReactEventHandler, useEffect, useRef, useState } from "react";
-import { Delete } from "../../icons";
+import { Close, Delete } from "../../icons";
 
 export enum Operator {
     IS_EQUAL_TO = 'IS_EQUAL_TO',
@@ -25,7 +25,7 @@ export type Condition = {
 
 // TODO: Ability to perform OR filter
 export default function Filter({ id }: NodeProps) {
-    const { updateNodeData } = useReactFlow();
+    const { updateNodeData, deleteElements } = useReactFlow();
     const numberOfConditions = useRef(1);
 
     const connections = useHandleConnections({
@@ -112,7 +112,12 @@ export default function Filter({ id }: NodeProps) {
         <CustomNodeContainer style={{minWidth: 200}}>
             <Handle type="target" position={Position.Left}/>
             <FilterInnerContainer>
-                <CustomNodeTitle>Filter</CustomNodeTitle>
+                <FilterHeaderContainer>
+                    <CustomNodeTitle>Filter</CustomNodeTitle>
+                    <FilterDeleteButton onClick={() => deleteElements({nodes: [{id}]})}>
+                        <Close />
+                    </FilterDeleteButton>
+                </FilterHeaderContainer>
                 {
                     conditions.map(condition => (
                         <Fragment key={condition.id}>

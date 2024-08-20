@@ -24,4 +24,11 @@ export const FilterColumnRow = styled.div`
 export const FilterDeleteButton = styled.button`
     background: none;
     border: none;
+    cursor: pointer;
+`;
+
+export const FilterHeaderContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `;
